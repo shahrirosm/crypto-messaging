@@ -30,7 +30,7 @@ const handleSend = async () => {
       variant="default"
       class="mb-4 bg-yellow-500 text-white"
     >
-      <CircleAlert class="h-4 w-4 animate-spin" />
+      <CircleAlert class="h-4 w-4" />
       <AlertTitle>Transaction Pending</AlertTitle>
       <AlertDescription>{{ store.result.message }}</AlertDescription>
     </Alert>
