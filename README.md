@@ -1,39 +1,49 @@
-# crypto-message
+# Crypto Messaging
 
-This template should help get you started developing with Vue 3 in Vite.
+A Vue.js application that combines encrypted messaging with cryptocurrency transactions. Built with Vue 3, TypeScript, and Tailwind CSS.
 
-## Recommended IDE Setup
+## Features
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- 🔐 Message encryption using libsodium
+- 💰 Cryptocurrency transactions via Web3/MetaMask
+- 🌓 Dark/Light theme support
+- 🎨 Modern UI with Tailwind CSS
+- 📱 Responsive design
 
-## Type Support for `.vue` Imports in TS
+## Prerequisites
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+- Node.js (v18 or higher recommended)
+- npm or yarn
+- MetaMask browser extension
 
-## Customize configuration
+## Installation
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+1. Clone the repository:
 
-## Project Setup
+```bash
+git clone <repository-url>
+```
 
-```sh
+2. Navigate to the project directory:
+
+```bash
+cd crypto-messaging
+```
+
+3. Install dependencies:
+
+```bash
 npm install
+# or
+yarn install
 ```
 
-### Compile and Hot-Reload for Development
+4. Start the development server:
 
-```sh
+```bash
 npm run dev
+# or
+yarn dev
 ```
 
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+The application will be available at `http://localhost:5173`
