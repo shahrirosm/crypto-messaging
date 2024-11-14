@@ -2,6 +2,10 @@
 
 A Vue.js application that combines encrypted messaging with cryptocurrency transactions. Built with Vue 3, TypeScript, and Tailwind CSS.
 
+## Demo
+
+🌐 [Live Demo](https://crypto-messaging.vercel.app/)
+
 ## Features
 
 - 🔐 Message encryption using libsodium
