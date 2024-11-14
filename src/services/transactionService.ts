@@ -13,7 +13,6 @@ export async function sendTransactionWithMetaMask(
       const provider = new ethers.BrowserProvider(window.ethereum)
       const signer = await provider.getSigner()
 
-      // Ensure the user is on Sepolia network
       const network = await provider.getNetwork()
       if (network.chainId !== BigInt(11155111)) {
         await window.ethereum.request({
@@ -21,7 +20,7 @@ export async function sendTransactionWithMetaMask(
           params: [{ chainId: '0xaa36a7' }],
         })
       }
-      // const recipientAddress = '0x2929225d38de0837d8368BB7AB42D5Cc73900C28'
+      
       if (!ciphertext.startsWith('0x')) {
         ciphertext = '0x' + ciphertext
       }

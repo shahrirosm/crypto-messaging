@@ -16,9 +16,6 @@ export const useTransactionStore = defineStore('transaction', () => {
   const isConfirmed = ref(false)
 
   const sendTransaction = async () =>
-    // ciphertext: string,
-    // ethAmount: string,
-    // recipientAddress: string
     {
       loading.value = true
       try {
