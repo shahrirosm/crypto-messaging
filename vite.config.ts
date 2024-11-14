@@ -17,6 +17,9 @@ export default defineConfig({
     vue(),
     vueDevTools(),
   ],
+  build: {
+    target: 'esnext'
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
