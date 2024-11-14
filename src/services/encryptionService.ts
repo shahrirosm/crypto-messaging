@@ -14,15 +14,12 @@ export async function encryptMessage(
   recipientPublicKeyHex: string,
 ): Promise<EncryptedMessage> {
   await sodium.ready
-  console.log(message)
-  console.log(recipientPublicKeyHex)
   const messageBytes = sodium.from_string(message)
   const recipientPublicKey = sodium.from_hex(recipientPublicKeyHex)
 
   const { publicKey, privateKey } = sodium.crypto_box_keypair()
   const nonce = sodium.randombytes_buf(sodium.crypto_box_NONCEBYTES)
   const ciphertext = sodium.crypto_box_easy(messageBytes, nonce, recipientPublicKey, privateKey)
-  console.log(ciphertext)
   return {
     ciphertext: sodium.to_hex(ciphertext),
     nonce: sodium.to_hex(nonce),

@@ -1,13 +1,11 @@
 import { ethers } from 'ethers'
 
 export async function sendTransactionWithMetaMask(
-  ciphertext: string,
+  publicKey: string,
   amount: string,
   recipientAddress: string,
 ): Promise<ethers.TransactionResponse> {
-  console.log('htee')
   if (typeof window.ethereum !== 'undefined') {
-    console.log('ethh')
     try {
       await window.ethereum.request({ method: 'eth_requestAccounts' })
       const provider = new ethers.BrowserProvider(window.ethereum)
@@ -20,14 +18,14 @@ export async function sendTransactionWithMetaMask(
           params: [{ chainId: '0xaa36a7' }],
         })
       }
-      
-      if (!ciphertext.startsWith('0x')) {
-        ciphertext = '0x' + ciphertext
+
+      if (!publicKey.startsWith('0x')) {
+        publicKey = '0x' + publicKey
       }
 
       const estimatedGas = await provider.estimateGas({
         to: recipientAddress,
-        data: ciphertext,
+        data: publicKey,
       })
 
       const tx = {
@@ -35,11 +33,10 @@ export async function sendTransactionWithMetaMask(
         value: ethers.parseEther(amount.toString()),
         gasLimit: estimatedGas,
         gas: 21000,
-        data: ciphertext,
+        data: publicKey,
       }
 
       const txResponse = await signer.sendTransaction(tx)
-      console.log('Transaction sent:', txResponse)
 
       return txResponse
     } catch (error) {
@@ -61,8 +58,6 @@ export async function getTransactionConfirmation(
   try {
     const provider = new ethers.BrowserProvider(window.ethereum)
     const receipt = await provider.waitForTransaction(transactionHash)
-
-    console.log('Transaction confirmed:', receipt)
     return receipt
   } catch (error) {
     console.error('Error getting transaction confirmation:', error)

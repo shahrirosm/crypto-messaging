@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'
 import { Send, CheckCircle, XCircle, Loader2, CircleAlert } from 'lucide-vue-next'
@@ -59,12 +58,11 @@ const handleSend = async () => {
         />
       </div>
       <div class="space-y-2">
-        <label for="send-ciphertext" class="text-sm font-medium">Ciphertext</label>
-        <Textarea
-          id="send-ciphertext"
-          v-model="store.ciphertext"
-          placeholder="Enter the ciphertext"
-          class="min-h-[100px]"
+        <label for="send-ciphertext" class="text-sm font-medium">Public Key</label>
+        <Input
+          id="send-public-key"
+          v-model="store.publicKey"
+          placeholder="Enter the generated public key"
         />
       </div>
       <div class="space-y-2">

@@ -7,7 +7,7 @@ import {
 
 export const useTransactionStore = defineStore('transaction', () => {
   const result = ref<{ result: boolean; message: string; status: string } | null>(null)
-  const ciphertext = ref('')
+  const publicKey = ref('')
   const ethAmount = ref('')
   const recipientAddress = ref('')
   const transactionHash = ref('')
@@ -15,59 +15,64 @@ export const useTransactionStore = defineStore('transaction', () => {
   const loading = ref(false)
   const isConfirmed = ref(false)
 
-  const sendTransaction = async () =>
-    {
-      loading.value = true
-      try {
-        if (
-          !ciphertext.value ||
-          ethAmount.value === '' ||
-          isNaN(Number(ethAmount.value)) ||
-          !recipientAddress.value
-        ) {
-          throw new Error('Invalid input parameters')
-        }
-
-        const txResponse = await sendTransactionWithMetaMask(
-          ciphertext.value,
-          ethAmount.value,
-          recipientAddress.value,
-        )
-
-        transactionHash.value = txResponse.hash
-        transactionRecipient.value = txResponse.to
-
-        result.value = {
-          result: true,
-          message: 'Transaction pending...',
-          status: 'pending',
-        }
-
-        const receipt = await getTransactionConfirmation(transactionHash.value)
-
-        console.log('Transaction confirmed:', receipt)
-        isConfirmed.value = true
-        result.value = {
-          result: true,
-          message: 'Transaction confirmed successfully',
-          status: 'confirmed',
-        }
-      } catch (error) {
-        result.value = {
-          result: false,
-          message: `Transaction error: ${error}`,
-          status: 'error',
-        }
-      } finally {
-        loading.value = false
+  const sendTransaction = async () => {
+    loading.value = true
+    try {
+      if (
+        !publicKey.value ||
+        ethAmount.value === '' ||
+        isNaN(Number(ethAmount.value)) ||
+        !recipientAddress.value
+      ) {
+        throw new Error('Invalid input parameters')
       }
+
+      const txResponse = await sendTransactionWithMetaMask(
+        publicKey.value,
+        ethAmount.value,
+        recipientAddress.value,
+      )
+
+      transactionHash.value = txResponse.hash
+      transactionRecipient.value = txResponse.to
+
+      result.value = {
+        result: true,
+        message: 'Transaction pending...',
+        status: 'pending',
+      }
+
+      const receipt = await getTransactionConfirmation(transactionHash.value)
+
+      if (receipt) {
+        isConfirmed.value = true
+      }
+
+      result.value = {
+        result: true,
+        message: 'Transaction confirmed successfully',
+        status: 'confirmed',
+      }
+    } catch (error) {
+      result.value = {
+        result: false,
+        message: `Transaction error: ${error}`,
+        status: 'error',
+      }
+    } finally {
+      loading.value = false
     }
+  }
 
   const reset = () => {
     result.value = null
     transactionHash.value = ''
     loading.value = false
     isConfirmed.value = false
+    publicKey.value = ''
+    ethAmount.value = ''
+    recipientAddress.value = ''
+    transactionRecipient.value = ''
   }
 
   return {
@@ -76,10 +81,10 @@ export const useTransactionStore = defineStore('transaction', () => {
     loading,
     sendTransaction,
     reset,
-    ciphertext,
+    publicKey,
     ethAmount,
     recipientAddress,
     isConfirmed,
-    transactionRecipient
+    transactionRecipient,
   }
 })
